@@ -168,6 +168,11 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust){##FUNCTION.me
     myDF["FFG_pre"] <- grepl("PREDATOR",toupper(myDF[,"FFG"]))
     myDF["FFG_scr"] <- grepl("SCRAPER",toupper(myDF[,"FFG"]))
     myDF["FFG_shr"] <- grepl("SHREDDER",toupper(myDF[,"FFG"]))
+  #Error check on "EXCLUDE" field
+  if (myDF$EXCLUDE!="Y"|"N") {
+    myMsg <- paste0(Exclude column incorrectly formatted. Should be "Y" or "N")
+    stop(myMsg)
+  }
   # Calculate Metrics (could have used pipe, %>%)
   met.val <- dplyr::summarise(dplyr::group_by(myDF, SITE, INDEX.NAME, STRATA_R)
              #
